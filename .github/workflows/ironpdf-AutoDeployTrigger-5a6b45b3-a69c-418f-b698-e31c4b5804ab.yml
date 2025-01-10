@@ -4,19 +4,19 @@ name: Trigger auto deployment for ironpdf
 on:
   # Automatically trigger it when detected changes in repo
   push:
-    branches: 
+    branches:
       [ main ]
     paths:
-    - '**'
-    - '.github/workflows/ironpdf-AutoDeployTrigger-5a6b45b3-a69c-418f-b698-e31c4b5804ab.yml'
+      - '**'
+      - '.github/workflows/ironpdf-AutoDeployTrigger-5a6b45b3-a69c-418f-b698-e31c4b5804ab.yml'
 
   # Allow manual trigger 
-  workflow_dispatch:      
+  workflow_dispatch:
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    permissions: 
+    permissions:
       id-token: write #This is required for requesting the OIDC JWT Token
       contents: read #Required when GH token is used to authenticate with private repo
 
@@ -35,14 +35,10 @@ jobs:
         uses: azure/container-apps-deploy-action@v2
         with:
           appSourcePath: ./
-          dockerfilePath: ./Dockerfile
+          dockerfilePath: ./PocIronPdfWord/Dockerfile
           registryUrl: crpocs.azurecr.io
           registryUsername: ${{ secrets.IRONPDF_REGISTRY_USERNAME }}
           registryPassword: ${{ secrets.IRONPDF_REGISTRY_PASSWORD }}
           containerAppName: ironpdf
           resourceGroup: pocs
           imageToBuild: crpocs.azurecr.io/ironpdf:${{ github.sha }}
-          _buildArgumentsKey_: |
-            _buildArgumentsValues_
-
-
