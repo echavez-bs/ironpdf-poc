@@ -11,6 +11,7 @@
     <ItemGroup>
         <PackageReference Include="IronPdf" Version="2025.1.1" />
         <PackageReference Include="IronPdf.Linux" Version="2025.1.1" />
+        <PackageReference Include="IronPdf.Native.Chrome.Linux" Version="2025.1.8" />
         <PackageReference Include="IronWord" Version="2025.1.2" />
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.0"/>
     </ItemGroup>
