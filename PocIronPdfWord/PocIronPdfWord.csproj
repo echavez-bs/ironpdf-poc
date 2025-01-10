@@ -9,30 +9,26 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="IronPdf" Version="2025.1.1" />
-        <PackageReference Include="IronPdf.Linux" Version="2025.1.1" />
-        <PackageReference Include="IronPdf.Native.Chrome.Linux" Version="2025.1.8" />
-        <PackageReference Include="IronWord" Version="2025.1.2" />
+        <PackageReference Include="IronPdf" Version="2025.1.1"/>
+        <PackageReference Include="IronPdf.Linux" Version="2025.1.1"/>
+        <PackageReference Include="IronPdf.Native.Chrome.Linux" Version="2025.1.8"/>
+        <PackageReference Include="IronWord" Version="2025.1.2"/>
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.0"/>
     </ItemGroup>
 
     <ItemGroup>
-      <Content Include="..\.dockerignore">
-        <Link>.dockerignore</Link>
-      </Content>
+        <Content Include="..\.dockerignore">
+            <Link>.dockerignore</Link>
+        </Content>
     </ItemGroup>
 
     <ItemGroup>
-      <None Remove="PocIronPdfWord.http" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Resource Include="logo.png">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Resource>
-      <Resource Include="documento.html">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Resource>
+        <None Include="Resources\documento.html">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Include="Resources\logo.png">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
     </ItemGroup>
 
 </Project>

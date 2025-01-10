@@ -18,19 +18,22 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.MapGet("/html-to-pdf-base64", async () =>
+app.MapGet("/html-to-pdf-base64", async (IWebHostEnvironment env) =>
     {
-        var html = await File.ReadAllTextAsync("documento.html");
+        var htmlPath = Path.Combine(env.ContentRootPath, "Resources", "documento.html");
+        var imagePath = Path.Combine(env.ContentRootPath, "Resources", "logo.png");
 
-        byte[] oxxoImageBinaryData = File.ReadAllBytes("logo.png");
+        var html = await File.ReadAllTextAsync(htmlPath);
+
+        byte[] oxxoImageBinaryData = File.ReadAllBytes(imagePath);
         string imgDataUri = @"data:image/png;base64," + Convert.ToBase64String(oxxoImageBinaryData);
         string imgHtml = $"<img src='{imgDataUri}'>";
-        
+
         var header = new HtmlHeaderFooter()
         {
             HtmlFragment = imgHtml
         };
-        
+
         var footer = new HtmlHeaderFooter()
         {
             HtmlFragment = @"
@@ -40,7 +43,7 @@ app.MapGet("/html-to-pdf-base64", async () =>
 <div>{page}</div>
 </div>"
         };
-        
+
         // Instantiates Chrome Renderer
         var renderer = new ChromePdfRenderer()
         {
@@ -59,24 +62,27 @@ app.MapGet("/html-to-pdf-base64", async () =>
 
         pdf.AddHtmlHeaders(header);
         pdf.AddHtmlFooters(footer);
-        
+
         return Convert.ToBase64String(pdfBytes);
     })
     .WithName("HtmlToPdfBase64");
 
-app.MapGet("/html-to-pdf", async () =>
+app.MapGet("/html-to-pdf", async (IWebHostEnvironment env) =>
     {
-        var html = await File.ReadAllTextAsync("documento.html");
+        var htmlPath = Path.Combine(env.ContentRootPath, "Resources", "documento.html");
+        var imagePath = Path.Combine(env.ContentRootPath, "Resources", "logo.png");
 
-        byte[] oxxoImageBinaryData = File.ReadAllBytes("logo.png");
+        var html = await File.ReadAllTextAsync(htmlPath);
+
+        byte[] oxxoImageBinaryData = File.ReadAllBytes(imagePath);
         string imgDataUri = @"data:image/png;base64," + Convert.ToBase64String(oxxoImageBinaryData);
         string imgHtml = $"<img src='{imgDataUri}'>";
-        
+
         var header = new HtmlHeaderFooter()
         {
             HtmlFragment = imgHtml
         };
-        
+
         var footer = new HtmlHeaderFooter()
         {
             HtmlFragment = @"
@@ -86,7 +92,7 @@ app.MapGet("/html-to-pdf", async () =>
 <div>{page}</div>
 </div>"
         };
-        
+
         // Instantiates Chrome Renderer
         var renderer = new ChromePdfRenderer()
         {
@@ -103,7 +109,7 @@ app.MapGet("/html-to-pdf", async () =>
 
         pdf.AddHtmlHeaders(header);
         pdf.AddHtmlFooters(footer);
-        
+
         var pdfBytes = pdf.BinaryData;
 
         return Results.File(pdfBytes, "application/pdf", $"file.pdf");

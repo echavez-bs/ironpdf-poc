@@ -39,6 +39,9 @@ FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
 RUN dotnet publish "PocIronPdfWord.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
+# Verifica que los recursos existen
+RUN ls -la /app/publish/
+
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
