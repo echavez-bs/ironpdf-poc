@@ -27,13 +27,11 @@
     </ItemGroup>
 
     <ItemGroup>
-      <None Remove="oxxo-logo.png" />
       <Resource Include="logo.png">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Resource>
-      <None Remove="documento.html" />
       <Resource Include="documento.html">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Resource>
     </ItemGroup>
 
